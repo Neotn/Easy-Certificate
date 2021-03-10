@@ -5,7 +5,7 @@ import navbarData from "../../../data/Navbar/navbaradmin";
 function NavbarItem(props) {
     return(
         navbarData.map(item=>(
-            <li key={item.id}
+            <li key={item.id} onClick={() => window.location.reload()}
                 className={item.subMenu || item.megaMenu ? 'has-submenu' : ''}
             >
                 <Link to={`${process.env.PUBLIC_URL + item.link}`}>{item.title}</Link>
@@ -15,7 +15,7 @@ function NavbarItem(props) {
                             <ul className="submenu-nav">
                                 {
                                     item.subMenu.map((subItem,index)=>{
-                                        return <li key={index}><Link to={`${process.env.PUBLIC_URL + subItem.link}`}>{subItem.title}</Link></li>
+                                        return <li onClick={() => window.location.reload()} key={index}><Link to={`${process.env.PUBLIC_URL + subItem.link}`}>{subItem.title}</Link></li>
                                     })
                                 }
                             </ul>

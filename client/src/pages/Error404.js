@@ -7,7 +7,7 @@ const Error404 = () => {
         <div style={styles}>
             <div>
                 <img src={error} alt="404"/>
-                <Link to="/" className={'btn-brand'} style={{display: 'inline-Block', marginTop: 30}}>Go Back
+                <Link to="/" className={'btn-brand'}  style={{display: 'inline-Block', marginTop: 30}}>Go Back
                     Home</Link>
             </div>
         </div>

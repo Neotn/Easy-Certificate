@@ -1,16 +1,18 @@
-import React, { Component,Fragment } from 'react'
-import { withRouter } from 'react-router-dom'
-import getWeb3 from "../getWeb3";
-import Certificate from "../contracts/Certificate.json";
+import React, { Component } from 'react'
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { Form,Button, FormGroup,Spinner, Container, Row, Col } from "react-bootstrap";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+import { Form, Container, Row, Col } from "react-bootstrap";
 import { epochToDate, loadBlockchainData } from '../utils/helper';
 import background from "../assets/img/diplome_template.png"
 import Header from '../components/HeaderAdmin'
 import Footer from "../components/Footer";
 import LoginRegister from "../components/LoginRegister";
+import Loader from "react-loader-spinner";
+
+
 
 class ViewCertificate extends Component {
     
@@ -30,7 +32,6 @@ class ViewCertificate extends Component {
         web3: null, 
         contract: null, 
         account:null,
-        z:null,
     }
 
     mystyle={
@@ -57,32 +58,23 @@ class ViewCertificate extends Component {
             let c = await this.state.contract.methods.getCertificate(this.state.hash).call();
             let y = await this.state.contract.methods.getIssuer(this.state.hash).call();
 
+            let zz = await this.state.contract.methods.Certificates(this.state.hash).call();
+
           
-            console.log(c)
-            console.log(y)
+            console.log(zz)
             this.setState({
-                nom: c[2],
-                specialite: c[0],
-                session: c[1],
-                dateNaissance: epochToDate(c[3]),
-                lieuNaissance: c[4],
-                nationalite:c[6],
-                cin_passport: c[5],
-                dateRealisation: epochToDate(y[2]),
-                numeroDiplome: y[3],
+                nom: zz[3],
+                specialite: zz[1],
+                session: zz[2],
+                dateNaissance: epochToDate(zz[4]),
+                lieuNaissance: zz[5],
+                nationalite:zz[7],
+                cin_passport: zz[6],
+                dateRealisation: epochToDate(zz[9]),
+                numeroDiplome: zz[8],
             })
             
-            
-
-            for (let index = 0; index <= this.state.hash; index++) {
-                let zz = await this.state.contract.methods.Certificates(index).call();
-
-                if(zz['identifiant']==="09855692")
-                {
-                    console.log(zz);
-                }
-                
-            }
+            this.setState({loading:true})
             
 
     }
@@ -91,9 +83,9 @@ class ViewCertificate extends Component {
 
     render() {
         //console.log(this.state)
+        if(this.state.loading===true){
         return (
             <div >
-                <Fragment>
                 <Header/>
 
                 <Container style={this.mystyle} >
@@ -179,8 +171,8 @@ class ViewCertificate extends Component {
                 </Col>
                 </Row>
 
-               
-               
+
+
 
                 </Form>
                 </div>
@@ -189,10 +181,19 @@ class ViewCertificate extends Component {
 
                 <Footer/>
                 <LoginRegister/>
-                </Fragment>
               
             </div>
-        )
+        )}else{
+            return(
+                <div>
+                    <div className="border border-light p-3 mb-4" style={{height:'100vh'}}>
+            <div className="d-flex align-items-center justify-content-center" style={{height:'100vh'}}>
+            <Loader visible={!this.state.loaded} type="Rings" color="#007bff" height={200} width={200} timeout={5000} />
+            </div>
+            </div>
+                </div>
+            )
+        }
     }
     
 }

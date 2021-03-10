@@ -46,6 +46,11 @@
 				"name": "Certificates",
 				"outputs": [
 					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					},
+					{
 						"internalType": "string",
 						"name": "Specialite",
 						"type": "string"
@@ -79,6 +84,16 @@
 						"internalType": "string",
 						"name": "Nationalite",
 						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "numCertificat",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "dateRealisation",
+						"type": "uint256"
 					}
 				],
 				"stateMutability": "view",
@@ -135,6 +150,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "deleteCertificate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -327,6 +355,64 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_etudiant",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_specialite",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_session",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dateNaissance",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_lieuNaissance",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_identifiant",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_nationalite",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_dateRealisation",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "_numCertificat",
+						"type": "string"
+					}
+				],
+				"name": "updateCertificate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "string",
 						"name": "_etudiant",
 						"type": "string"
@@ -397,7 +483,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"localhost/Certificate.sol": "Certificate"
+			"localhost/contracts/Certificate.sol": "Certificate"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -411,12 +497,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"localhost/Certificate.sol": {
-			"keccak256": "0xca23b91d5e141834598d1b4c9bb7caeab5e7797fceb7e43cf93c7ea6f4142646",
+		"localhost/contracts/Certificate.sol": {
+			"keccak256": "0x3c766f7e96babc2856f0dc2fbbac6947b2194b4c19998e07ca016955b45bcf23",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://c31ff79798059738b416cebb12d41fcd7e69a22cde6960925e95ef5e10a66cbf",
-				"dweb:/ipfs/QmVE676wfQ4nVtrGNB6PyNkKbsvUBKj4tjYc35KhWeNnPf"
+				"bzz-raw://7bb4fde42ebf05c3357e5fc402ac5c12d73f9a440b8bfb77a106eb356ad8a699",
+				"dweb:/ipfs/QmUnVsJVrT6AFECYmT62LAUBDL7ux4zYmeyAUy2tkuv7dC"
 			]
 		}
 	},

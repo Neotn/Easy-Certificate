@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from 'react'
+import React, { Component } from 'react'
 import Header from '../components/HeaderAdmin'
 import Footer from "../components/Footer";
 import LoginRegister from "../components/LoginRegister";
@@ -7,7 +7,6 @@ export default class Admin extends Component {
     render() {
         return (
             <div className="App">
-                 <Fragment>
                 <Header/>
 
 
@@ -15,7 +14,6 @@ export default class Admin extends Component {
 
                 <Footer/>
                 <LoginRegister/>
-                </Fragment>
             </div>
         )
     }

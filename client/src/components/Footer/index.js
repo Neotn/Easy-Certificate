@@ -51,15 +51,7 @@ function Footer() {
                         </Widget>
                     </div>
 
-                    <div className="col-md-4 col-lg-3">
-                        <Widget title="Contact Us">
-                            <address>
-                                2005 Stokes Isle Apartment. 896, Washington 10010, USA <br/>
-                                https://example.com <br/>
-                                (+68) 120034509
-                            </address>
-                        </Widget>
-                    </div>
+                  
                 </div>
             </div>
         </footer>

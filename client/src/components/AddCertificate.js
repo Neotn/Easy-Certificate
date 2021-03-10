@@ -1,17 +1,21 @@
-import React,{ Component,Fragment } from "react";
+import React,{ Component } from "react";
 import { Form,Button, FormGroup,Spinner,Container, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
-import getWeb3 from "../getWeb3";
-import Certificate from "../contracts/Certificate.json";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-datepicker/dist/react-datepicker.css";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+
 import { loadBlockchainData,dateToEpoch } from "../utils/helper.js";
 import { Redirect } from "react-router-dom";
 
 import Header from '../components/HeaderAdmin'
 import Footer from "../components/Footer";
 import LoginRegister from "../components/LoginRegister";
+import {
+    BrowserRouter as Router,
+  } from "react-router-dom";
 
 class AddCertificate extends Component{
 
@@ -99,13 +103,14 @@ class AddCertificate extends Component{
     render(){
         if(this.state.redirect===true){
             return(
-            <Redirect to={`/view/${this.state.id}`} />
+                <Router>
+            <Redirect from="/add" to={`/view/${this.state.id}`} />
+            </Router>
             )
         }else{
         return(
             
             <div className="App">
-                <Fragment>
                 <Header/>
 
                 <Container className="container-fluid">
@@ -203,7 +208,6 @@ class AddCertificate extends Component{
 
                 <Footer/>
                 <LoginRegister/>
-                </Fragment>
                 
             </div>
         )}
