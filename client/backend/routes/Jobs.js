@@ -55,19 +55,9 @@ router.route("/update/:id").post((req, res) => {
   Job.findById(req.params.id)
     .then(Job => {
       
-      Job.email = req.body.email;
-      Job.password = bcrypt.hashSync(req.body.password, saltRounds);
-      Job.name = req.body.name;
-      Job.lastName = req.body.lastName;
-      Job.profilePicture = req.body.profilePicture;
-      Job.address = req.body.address;
-      Job.city = req.body.city;
-      Job.country = req.body.country;
-      Job.postalCode = req.body.postalCode;
-      Job.bio = req.body.bio;
-      Job.facebook = req.body.facebook;
-      Job.twitter = req.body.twitter;
-      Job.linkedin = req.body.linkedin;
+      Job.title = req.body.title;
+      Job.user = req.body.user;
+      
 
       Job.save()
         .then(() => res.json("updated successfully !"))

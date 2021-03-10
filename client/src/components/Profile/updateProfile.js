@@ -80,6 +80,8 @@ import RecentDiplomas from "./RecentDiplomas";
 import UserCard from "./UserCard";
 import UpdateFrom from "./UpdateFrom";
 import { Tabs, Tab } from "react-bootstrap";
+import UpdateProjects from "./UpdateProjects";
+import UpdateJobs from "./UpdateJobs";
 
 
 
@@ -102,7 +104,7 @@ class User extends React.Component {
 
     getUser() {
         // console.log("entered here :) hello boi");
-        fetch(`http://192.168.1.17:5000/users/${this.props.user._id}`)
+        fetch(`http://localhost:5000/users/${this.props.user._id}`)
             .then(res => res.json())
             .then(res => {
                 this.setState({ user: res });
@@ -129,7 +131,7 @@ class User extends React.Component {
                         {/* Basic user info */}
                         <Col md="4">
                             <UserCard user={this.state.user} />
-                            <RecentDiplomas />
+                            {/* <RecentDiplomas /> */}
                         </Col>
                         {/* Edit Profile */}
                         <Col md="8">
@@ -141,6 +143,12 @@ class User extends React.Component {
                                     <Tabs defaultActiveKey="basicInfo" id="uncontrolled-tab-example">
                                         <Tab title="Basic Info" eventKey="basicInfo">
                                             <UpdateFrom  user={this.state.user} />
+                                        </Tab>
+                                        <Tab title="Projects" eventKey="projects">
+                                            <UpdateProjects user={this.state.user}/>
+                                        </Tab>
+                                        <Tab title="Job Experience" eventKey="jobs">
+                                            <UpdateJobs user={this.state.user}/>
                                         </Tab>
                                     </Tabs>
                                 </CardBody>

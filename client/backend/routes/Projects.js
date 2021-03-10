@@ -57,19 +57,9 @@ router.route("/update/:id").post((req, res) => {
   Project.findById(req.params.id)
     .then(Project => {
       
-      Project.email = req.body.email;
-      Project.password = bcrypt.hashSync(req.body.password, saltRounds);
-      Project.name = req.body.name;
-      Project.lastName = req.body.lastName;
-      Project.profilePicture = req.body.profilePicture;
-      Project.address = req.body.address;
-      Project.city = req.body.city;
-      Project.country = req.body.country;
-      Project.postalCode = req.body.postalCode;
-      Project.bio = req.body.bio;
-      Project.facebook = req.body.facebook;
-      Project.twitter = req.body.twitter;
-      Project.linkedin = req.body.linkedin;
+      Project.title = req.body.title;
+      Project.link = req.body.link;
+      Project.user = req.body.user;
 
       Project.save()
         .then(() => res.json("updated successfully !"))

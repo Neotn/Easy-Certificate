@@ -27,7 +27,7 @@ export default class Projects extends Component {
     getProjects(id) {
         // console.log("entered here :) hello boi");
         // console.log("http://192.168.1.17:5000/jobs/" + id)
-        fetch("http://192.168.1.17:5000/projects/" + id)
+        fetch("http://localhost:5000/projects/" + id)
             .then(res => res.json())
             .then(res => {
                 // console.log(res);
