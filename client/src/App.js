@@ -25,6 +25,7 @@ class App extends Component {
         <Route exact path="/view" component={ViewAllCertificates}></Route>
         <Route exact path="/update/:id" component={UpdateCertificate}></Route>
         <Route exact path="/delete/:id" component={DeleteCertificate}></Route>
+        <Route exact path="/delete" component={DeleteCertificate}></Route>
         <Route exact component={Error404}/>
         </Switch>
 
@@ -38,6 +39,7 @@ class App extends Component {
       <Route exact component={Error404}/>
       </Switch> */
       <Switch>
+        <Route exact path="/" component={Home}></Route>
         <Route exact component={Error404}/>
       </Switch>
 

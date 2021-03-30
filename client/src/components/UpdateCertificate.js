@@ -36,7 +36,7 @@ export default class UpdateCertificate extends Component {
     componentDidMount =  async () => {
         const { match: { params } } = this.props;
         this.setState({hash: params.id})
-        let data = loadBlockchainData();
+        let data = await loadBlockchainData();
           this.setState({ account: (await data).accounts[0],web3: (await data).web3,contract: (await data).instance });
 
 
@@ -87,12 +87,12 @@ export default class UpdateCertificate extends Component {
 
     render() {
         console.log(this.state)
-        if(this.state.redirect===true){
+        if(this.state.redirect){
             return(
                 <Redirect to={`/view`} />
                 )
         }else{
-        if(this.state.loading===true){
+        if(this.state.loading){
         return (
             
             <div>

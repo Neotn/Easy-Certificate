@@ -32,7 +32,7 @@ contract Certificate{
         string lieuNaissance;//
         string identifiant;//
         string Nationalite;//
-        
+        bool isDeleted;
         string numCertificat;//
         uint256 dateRealisation;//
     }
@@ -69,6 +69,7 @@ contract Certificate{
         Certificates[numCertificateIssued].lieuNaissance=_lieuNaissance;
         Certificates[numCertificateIssued].identifiant=_identifiant;
         Certificates[numCertificateIssued].Nationalite=_nationalite;
+        Certificates[numCertificateIssued].isDeleted=false;
         
         Certificates[numCertificateIssued].dateRealisation=_dateRealisation;
             Certificates[numCertificateIssued].numCertificat=_numCertificat;
@@ -114,38 +115,15 @@ contract Certificate{
              
         
     }
-    // 0 1 2 3 
+    
     function deleteCertificate(uint256 _id) onlyOwner public
     {
-        delete Certificates[_id];
-        delete certs[_id];
-        delete iss[_id];
-        
-        if(keccak256(abi.encodePacked((_id))) == keccak256(abi.encodePacked((certs.length))))
-        {
-            numCertificateIssued-=1;
-            
-        }
-         if(keccak256(abi.encodePacked((_id))) == 0)
-        {
-            numCertificateIssued-=1;
-            for(uint256 index=1;index<=certs.length;index++)
-            {
-                Certificates[index].id=index-1;
-                Certificates[index]=Certificates[index-1];
-                
-                Issuers[index]=Issuers[index-1];
-            }
-        }
-        
-        numCertificateIssued-=1;
-            for(uint256 index=_id;index<=certs.length;index++)
-            {
-                Certificates[index].id=index-1;
-                Certificates[index]=Certificates[index-1];
-                Issuers[index]=Issuers[index-1];
-            }
-        
+        Certificates[_id].isDeleted=true;
+    }
+    
+    function activateCertificate(uint256 _id) onlyOwner public
+    {
+        Certificates[_id].isDeleted=false;
     }
 
     function getCertificate(uint256 _id)view public returns(string memory,string memory,string memory,uint256,string memory,string memory,string memory){

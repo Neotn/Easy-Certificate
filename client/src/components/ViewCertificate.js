@@ -52,12 +52,8 @@ class ViewCertificate extends Component {
         const { match: { params } } = this.props;
         this.setState({hash: params.hash})
 
-        let data = loadBlockchainData();
+        let data = await loadBlockchainData();
           this.setState({ account: (await data).accounts[0],web3: (await data).web3,contract: (await data).instance });
-
-            let c = await this.state.contract.methods.getCertificate(this.state.hash).call();
-            let y = await this.state.contract.methods.getIssuer(this.state.hash).call();
-
             let zz = await this.state.contract.methods.Certificates(this.state.hash).call();
 
           
@@ -70,8 +66,8 @@ class ViewCertificate extends Component {
                 lieuNaissance: zz[5],
                 nationalite:zz[7],
                 cin_passport: zz[6],
-                dateRealisation: epochToDate(zz[9]),
-                numeroDiplome: zz[8],
+                dateRealisation: epochToDate(zz[10]),
+                numeroDiplome: zz[9],
             })
             
             this.setState({loading:true})
@@ -83,7 +79,7 @@ class ViewCertificate extends Component {
 
     render() {
         //console.log(this.state)
-        if(this.state.loading===true){
+        if(this.state.loading){
         return (
             <div >
                 <Header/>
@@ -188,7 +184,7 @@ class ViewCertificate extends Component {
                 <div>
                     <div className="border border-light p-3 mb-4" style={{height:'100vh'}}>
             <div className="d-flex align-items-center justify-content-center" style={{height:'100vh'}}>
-            <Loader visible={!this.state.loaded} type="Rings" color="#007bff" height={200} width={200} timeout={5000} />
+            <Loader visible={!this.state.loading} type="Rings" color="#007bff" height={200} width={200} timeout={5000} />
             </div>
             </div>
                 </div>

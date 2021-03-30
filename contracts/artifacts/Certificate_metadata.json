@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.7.4+commit.3f05b770"
+		"version": "0.7.6+commit.7338295f"
 	},
 	"language": "Solidity",
 	"output": {
@@ -86,6 +86,11 @@
 						"type": "string"
 					},
 					{
+						"internalType": "bool",
+						"name": "isDeleted",
+						"type": "bool"
+					},
+					{
 						"internalType": "string",
 						"name": "numCertificat",
 						"type": "string"
@@ -131,6 +136,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_id",
+						"type": "uint256"
+					}
+				],
+				"name": "activateCertificate",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -483,7 +501,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"localhost/contracts/Certificate.sol": "Certificate"
+			"Certificate.sol": "Certificate"
 		},
 		"evmVersion": "istanbul",
 		"libraries": {},
@@ -497,12 +515,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"localhost/contracts/Certificate.sol": {
-			"keccak256": "0x3c766f7e96babc2856f0dc2fbbac6947b2194b4c19998e07ca016955b45bcf23",
+		"Certificate.sol": {
+			"keccak256": "0x3697984c4b45546274453ecb565d70814fa8d85bc75b484c563f1fea27c7a333",
 			"license": "UNLICENSED",
 			"urls": [
-				"bzz-raw://7bb4fde42ebf05c3357e5fc402ac5c12d73f9a440b8bfb77a106eb356ad8a699",
-				"dweb:/ipfs/QmUnVsJVrT6AFECYmT62LAUBDL7ux4zYmeyAUy2tkuv7dC"
+				"bzz-raw://58a83645d3f5706b495fd8b4ebaf4a61e20accc39fdf7038fa08529bfe6c5bf2",
+				"dweb:/ipfs/QmVgpUAqzMjKwhWYocYhWsn7c4WCE9ba8kurgdKzoMVn83"
 			]
 		}
 	},
