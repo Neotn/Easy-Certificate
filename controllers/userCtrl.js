@@ -1,4 +1,4 @@
-const Users  =  require('../models/User')
+const Users  =  require('../models/userModel')
 const bcrypt =  require('bcrypt')
 const jwt = require('jsonwebtoken')
 const sendMail = require('./sendMail')
@@ -32,11 +32,11 @@ const userCtrl = {
             const passwordHash = await bcrypt.hash(password, 12)
 
             const newUser = {
-                name ,  email , password: passwordHash, profileId
+                name ,  email , password: passwordHash,profileId
             }
             const activation_token = createActivationToken(newUser)
 
-            const url = `${CLIENT_URL}/users/activate/${activation_token}`
+            const url = `${CLIENT_URL}/user/activate/${activation_token}`
             sendMail(email, url, "Verify your email address")
 
             res.json({msg: "Register Success! Please activate your email to start."})
@@ -77,7 +77,7 @@ const userCtrl = {
            const refresh_token = createRefreshToken({id: user._id})
             res.cookie('refreshtoken', refresh_token, {
                 httpOnly: true,
-                path: 'users/refresh_token',
+                path: '/user/refresh_token',
                 maxAge : 7*24*60*60*1000 // 7 days
             })
            res.json({msg: "Login success!"})
@@ -88,10 +88,10 @@ const userCtrl = {
     getAccessToken: (req,res) => {
         try {
             const rf_token = req.cookies.refreshtoken
-            if(!rf_token) return res.status(400).json({msg: "Please login now!1"})
+            if(!rf_token) return res.status(400).json({msg: "Please login now!"})
 
             jwt.verify(rf_token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
-               if(err)  return res.status(400).json({msg: "Please login now!2"})
+               if(err)  return res.status(400).json({msg: "Please login now!"})
 
                const access_token = createAccessToken({id: user.id})
                res.json({access_token})
@@ -107,7 +107,7 @@ const userCtrl = {
             if(!user) return res.status(400).json({msg:"This email does not exist."})
 
             const access_token = createAccessToken({id: user._id})
-            const url = `${CLIENT_URL}/users/reset/${access_token}`
+            const url = `${CLIENT_URL}/user/reset/${access_token}`
 
             sendEmail(email , url, "Reset your password" )
             res.json({msg:"Re_send the password, please check your email."})
@@ -133,7 +133,7 @@ const userCtrl = {
     },
     getUserInfor: async (req, res) => {
         try {
-            const user =  await Users.findById(req.user.id).select('-password')
+            const user =  await Users. findById(req.user.id).select('-password')
 
             res.json(user)
             
@@ -151,7 +151,7 @@ const userCtrl = {
     },
     logout: async (req, res) => {
         try {
-            res.clearCookie('refreshtoken', {path: '/users/refresh_token'})
+            res.clearCookie('refreshtoken', {path: '/user/refresh_token'})
             return res.json({msg:"Logged out."})
         } catch (err) {
             return res.status(500).json({msg: err.message})
@@ -207,6 +207,8 @@ const userCtrl = {
 
             const user = await Users.findOne({email})
 
+            const username =  email.substr(0,email.indexOf("@"))
+
             if(user){
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
@@ -214,14 +216,14 @@ const userCtrl = {
                 const refresh_token = createRefreshToken({id: user._id})
                 res.cookie('refreshtoken', refresh_token, {
                     httpOnly: true,
-                    path: '/users/refresh_token',
+                    path: '/user/refresh_token',
                     maxAge: 7*24*60*60*1000 // 7 days
                 })
 
                 res.json({msg: "Login success!"})
             }else{
                 const newUser = new Users({
-                    name, email, password: passwordHash, avatar: picture
+                    name, email, password: passwordHash, profilePicture: picture,profileId:username
                 })
 
                 await newUser.save()
@@ -229,7 +231,7 @@ const userCtrl = {
                 const refresh_token = createRefreshToken({id: newUser._id})
                 res.cookie('refreshtoken', refresh_token, {
                     httpOnly: true,
-                    path: '/users/refresh_token',
+                    path: '/user/refresh_token',
                     maxAge: 7*24*60*60*1000 // 7 days
                 })
 
@@ -257,6 +259,8 @@ const userCtrl = {
 
             const user = await Users.findOne({email})
 
+            const username =  email.substr(0,email.indexOf("@"))
+
             if(user){
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(!isMatch) return res.status(400).json({msg: "Password is incorrect."})
@@ -264,14 +268,14 @@ const userCtrl = {
                 const refresh_token = createRefreshToken({id: user._id})
                 res.cookie('refreshtoken', refresh_token, {
                     httpOnly: true,
-                    path: '/users/refresh_token',
+                    path: '/user/refresh_token',
                     maxAge: 7*24*60*60*1000 // 7 days
                 })
 
                 res.json({msg: "Login success!"})
             }else{
                 const newUser = new Users({
-                    name, email, password: passwordHash, avatar: picture.data.url
+                    name, email, password: passwordHash, profilePicture: picture.data.url,profileId:username
                 })
 
                 await newUser.save()
@@ -279,7 +283,7 @@ const userCtrl = {
                 const refresh_token = createRefreshToken({id: newUser._id})
                 res.cookie('refreshtoken', refresh_token, {
                     httpOnly: true,
-                    path: '/users/refresh_token',
+                    path: '/user/refresh_token',
                     maxAge: 7*24*60*60*1000 // 7 days
                 })
 

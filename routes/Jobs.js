@@ -49,7 +49,7 @@ router.route('/add').post((req, res) => {
 router.route("/delete/:id").delete((req, res) => {
   Job.findByIdAndDelete(req.params.id)
     .then(() => res.json("deleted successfully"))
-    .catch(() => res.status(400).json("could not delete ! Error: " + err));
+    .catch((err) => res.status(400).json("could not delete ! Error: " + err));
 });
 
 //updates the Job
