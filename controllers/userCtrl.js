@@ -159,13 +159,21 @@ const userCtrl = {
         }
     },
     updateUser: async (req,res) => {
+        console.log(req.body)
         try {
-            const {name, avatar} = req.body
-            await Users.findOneAndUpdate({_id: req.user.id}, {
-                name , avatar
+            const {email, profileId,role} = req.body
+            Users.findById(req.body.id).then(user=>{
+                user.email = email,
+                user.profileId=profileId,
+                user.role=role
+                user.save().then(
+                    res.json({msg: "Update Success!"})
+                )
             })
+            // Users.findOneAndUpdate({_id: req.params.id}, {
+            //     email,profileId,role
+            // })
             
-            res.json({msg: "Update Success!"})
         } catch (err) {
             return res.status(500).json({msg: err.message})
         }

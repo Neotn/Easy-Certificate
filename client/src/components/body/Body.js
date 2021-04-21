@@ -66,9 +66,7 @@ function Body() {
                   <AddCertificate user={auth.user}/> 
                   </Route> 
 
-                  <Route exact path="/update/">
-                    <UpdateCertificate user={auth.user} />
-                  </Route>
+                  <Route exact path="/update/" component={UpdateCertificate}/>
                   <Route exact path="/delete/" component={DeleteCertificate}></Route>
                   <Route exact path="/users" component={Users}></Route>
                   <Route path="/edit_user/:id" component={isAdmin ? EditUser : Error404} exact />
